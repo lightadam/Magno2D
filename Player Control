@@ -3,11 +3,10 @@ using UnityEngine;
 public class Control : MonoBehaviour
 {
     public Rigidbody2D rb;
-
+    public Control movement;
     public float sidewaysForce;
     public Vector2 jumpVector;
     public bool isGrounded;
-
     public Transform grounder;
     public float radius;
     public LayerMask ground;
@@ -17,6 +16,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<Control>();
     }
 
     // Update is called once per frame
@@ -43,15 +43,15 @@ public class Control : MonoBehaviour
             rb.AddForce(jumpVector, ForceMode2D.Force);
         }
     }
-    void OnCollision2D(Collision2D collisionInfo)
+    void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Platform" && isGrounded == false)
         {
-            GetComponent(Control).enabled = false;
+            movement.enabled = false;
         }
-        else if
-            {
-            GetComponent(Control).enabled = true;
+        else
+        {
+            movement.enabled = true;
         }
     }
 }
